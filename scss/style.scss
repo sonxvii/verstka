@@ -25,6 +25,15 @@ $radius-btn: 10px;
     }
 }
 
+@mixin set-size($font-size:16px) {
+    font-size: $font-size;
+    padding: $font-size*0.5 $font-size*0.3;
+
+}
+@mixin set-colors($bg: $bg-btn, $text: $color-btn) {
+    background-color: $bg;
+    color: $text;
+}
 :root {
     --main-color: #{$main-color};
     --bg-primary-btn: #005bff;
@@ -284,6 +293,8 @@ color: $main-color;
 // ===== ===== REGISTRATION ===== =====
 
 .auth {
+    display: flex;
+    flex-direction: column;
     max-width: 200px;
     background-color: adjust-color($bg_btn,$lightness: 40%);
     padding: 20px;
@@ -293,23 +304,46 @@ color: $main-color;
     div:first-child{
         padding-top: 0;
     }
+    input {
+        border-radius: $radius-btn;
+        border: none;
+        @include set-size($font-size-btn)
+    }
+    input::placeholder {
+        padding-left: 5px;
+    }
     &__value {
         border-radius: $radius-btn;
+        height:40px;
+        width: 100%;
+        border: none;
     }
     &__btn{
+        height: 40px;
+        width: 100%;
         border: none;
-        transition: all 0.3s;
+        transition: scale 0.2s ease-in-out;
         &--login {
-            color: $color-btn;
-            background: $bg-btn;
-            font-size: $font-size-btn;
-            border-radius: $radius-btn;
-            padding-left: $font-size-btn*0.5;
-            padding-right: $font-size-btn*0.5;
+            // color: $color-btn;
+            // background: $bg-btn;
+            // border-radius: $radius-btn;
+            @include set-colors();
+            &:hover {
+                scale: 1.05;
+                color: adjust-color($color-btn,$blackness: 10%);
+                background-color: adjust-color($bg-btn, $lightness: 20%);
+            }
         }
         &--reg {
-            color: adjust-color($bg-btn,$lightness: 20%);
-            background: adjust-color($bg-btn,$lightness: -20%);
+            // color: adjust-color($bg-btn,$blackness: 50%);
+            // background: adjust-color($bg-btn,$lightness: 50%);
+            // border-radius: $radius-btn;
+            @include set-colors(lighten($bg-btn, 50%), darken($bg-btn,10%));
+            &:hover {
+                scale: 1.05;
+                color: adjust-color($bg-btn,$blackness: 20%);
+                background-color: adjust-color($bg-btn, $lightness: 60%);
+            }
         }
     }
 }
